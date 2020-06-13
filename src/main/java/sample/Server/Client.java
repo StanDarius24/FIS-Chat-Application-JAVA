@@ -1,4 +1,4 @@
-package sample.Server;
+package Server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -21,7 +21,7 @@ public class Client {
 
         new Thread(() -> {
             try {
-                while (true) {
+                while(true) {
                     message = dis.readUTF();
                     System.out.println(message);
                     List<Client> entry = Server.clients;
@@ -31,7 +31,29 @@ public class Client {
                     }
                 }
             } catch (IOException E) {
+                try {
+                    dis.close();
+                    dos.close();
+                    Server.clients = Server.clients.stream()
+                            .filter(e -> {
+                                if(!(e == this)) {
+                                    String exit_message = "{ \"name\" : \"" + "[ SERVER NOTICE ]" + "\", \"message\" : \"" + name + " Disconnected" + "\"}";
+                                    System.out.println(exit_message);
+                                    try {
+                                        e.getDos().writeUTF(exit_message);
+                                    } catch (IOException err) {
+                                        err.printStackTrace();
+                                    }
+                                }
+                                return !(e == this);
+                            })
+                            .collect(Collectors.toList());
 
+                    System.out.println("[Current User : " + Server.clients.size() + "]");
+
+                } catch(IOException E2) {
+                    E2.printStackTrace();
+                }
             }
         }).start();
     }

@@ -28,7 +28,21 @@ public class OnlinePeopleController extends Application implements Initializable
         primaryStage.show();
     }
 
+    public static void addingpeople(String name)
+    {
+        chacha.add(name);
 
+    }
+    public static void removepeople(String name)
+    {
+        chacha.remove(name);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        list= FXCollections.observableArrayList(chacha);
+        listview.setItems(list);
+    }
 
     public static void main(String[] args) {
         launch(args);

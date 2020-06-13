@@ -92,5 +92,12 @@ public class room {
 
     }
 
+    public void buttonPressed(KeyEvent e) {
+        if(e.getCode().toString().equals("ENTER"))
+        {
+            onClickSend();
+        }
+    }
+
 }
 

@@ -1,6 +1,6 @@
 # ChatApplication
 Fis Project CHAT APPLICATION
-#Gid instalare baza de date
+#Ghid instalare baza de date
     Am folosit ca baza de date un program numit XAMPP care creaza o baza de date local.
     Link pentru instalare: 
     https://www.apachefriends.org/ro/index.html

@@ -14,4 +14,25 @@ public class Client {
     public DataOutputStream getDos() {
         return dos;
     }
+
+    Client(String name, DataOutputStream dos, DataInputStream dis) {
+        this.name = name;
+        this.dos = dos;
+
+        new Thread(() -> {
+            try {
+                while (true) {
+                    message = dis.readUTF();
+                    System.out.println(message);
+                    List<Client> entry = Server.clients;
+                    for (Client cli : entry) {
+                        DataOutputStream edos = cli.getDos();
+                        edos.writeUTF(message);
+                    }
+                }
+            } catch (IOException E) {
+
+            }
+        }).start();
+    }
 }

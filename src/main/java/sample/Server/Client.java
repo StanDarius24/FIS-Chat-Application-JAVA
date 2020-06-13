@@ -1,4 +1,4 @@
-package Server;
+package sample.Server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -21,7 +21,7 @@ public class Client {
 
         new Thread(() -> {
             try {
-                while(true) {
+                while (true) {
                     message = dis.readUTF();
                     System.out.println(message);
                     List<Client> entry = Server.clients;

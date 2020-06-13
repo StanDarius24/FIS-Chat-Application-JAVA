@@ -1,4 +1,4 @@
-package Client;
+package sample.Client;
 
 public class data {
     public static String ip;

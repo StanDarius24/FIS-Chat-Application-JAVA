@@ -66,7 +66,7 @@ public class LoginController {
 
                                             System.out.println("Clicked");
                                             data.ip="localhost";
-                                            data.port=10001;
+                                            data.port=10002;
                                             data.name=demonu;
 
                                         Parent Register = FXMLLoader.load(getClass().getResource("/sample/Client/room.fxml"));

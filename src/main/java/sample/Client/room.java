@@ -1,12 +1,10 @@
-package Client;
+package sample.Client;
 
-import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -18,9 +16,9 @@ public class room {
     DataOutputStream dos;
     DataInputStream dis;
 
-    @FXML
+
     public TextField myMsg;
-    @FXML
+
     public TextArea chatLog;
 
     public room() {
@@ -31,33 +29,8 @@ public class room {
             dis = new DataInputStream(sock.getInputStream());
 
             dos.writeUTF(data.name);
-            /*
-             * This Thread let the client recieve the message from the server for any time;
-             */
-            th = new Thread(() -> {
-                try {
 
-                    JSONParser parser = new JSONParser();
-
-                    while(true) {
-                        String newMsgJson = dis.readUTF();
-
-                        System.out.println("RE : " + newMsgJson);
-                        Message newMsg = new Message();
-
-                        Object obj = parser.parse(newMsgJson);
-                        JSONObject msg = (JSONObject) obj;
-
-                        newMsg.setName((String) msg.get("name"));
-                        newMsg.setMessage((String) msg.get("message"));
-
-                        chatLog.appendText(newMsg.getName() + " : " + newMsg.getMessage() + "\n");
-                    }
-                } catch(Exception E) {
-                    E.printStackTrace();
-                }
-
-            });
+            th = new Thread(this::run);
 
             th.start();
 
@@ -99,5 +72,29 @@ public class room {
         }
     }
 
+    private void run() {
+        try {
+
+            JSONParser parser = new JSONParser();
+
+            while (true) {
+                String newMsgJson = dis.readUTF();
+
+                System.out.println("RE : " + newMsgJson);
+                MessageFormat newMsg = new MessageFormat();
+
+                Object obj = parser.parse(newMsgJson);
+                JSONObject msg = (JSONObject) obj;
+
+                newMsg.setName((String) msg.get("name"));
+                newMsg.setMessage((String) msg.get("message"));
+
+                chatLog.appendText(newMsg.getName() + " : " + newMsg.getMessage() + "\n");
+            }
+        } catch (Exception E) {
+            E.printStackTrace();
+        }
+
+    }
 }
 

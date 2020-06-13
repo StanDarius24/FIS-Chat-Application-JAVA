@@ -23,9 +23,9 @@ public class Server {
         clients = new ArrayList<Client>();
 
         try {
-            ServerSocket servSock = new ServerSocket(10001);
+            ServerSocket servSock = new ServerSocket(10002);
 
-            while (true) {
+            while(true) {
                 client = servSock.accept();
                 dis = new DataInputStream(client.getInputStream());
                 dos = new DataOutputStream(client.getOutputStream());

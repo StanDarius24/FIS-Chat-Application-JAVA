@@ -1,6 +1,6 @@
-package Client;
+package sample.Client;
 
-public class Message {
+public class MessageFormat {
     private String name;
     private String message;
 

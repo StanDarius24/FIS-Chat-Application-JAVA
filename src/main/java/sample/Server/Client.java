@@ -15,13 +15,15 @@ public class Client {
         return dos;
     }
 
+
+
     Client(String name, DataOutputStream dos, DataInputStream dis) {
         this.name = name;
         this.dos = dos;
 
         new Thread(() -> {
             try {
-                while (true) {
+                while(true) {
                     message = dis.readUTF();
                     System.out.println(message);
                     List<Client> entry = Server.clients;
@@ -35,19 +37,19 @@ public class Client {
                     dis.close();
                     dos.close();
                     Server.clients = Server.clients.stream()
-                            .filter(e -> {
-                                if(!(e == this)) {
-                                    String exit_message = "{ \"name\" : \"" + "[ SERVER NOTICE ]" + "\", \"message\" : \"" + name + " Disconnected" + "\"}";
-                                    System.out.println(exit_message);
-                                    try {
-                                        e.getDos().writeUTF(exit_message);
-                                    } catch (IOException err) {
-                                        err.printStackTrace();
+                                .filter(e -> {
+                                    if(!(e == this)) {
+                                        String exit_message = "{ \"name\" : \"" + "[ SERVER NOTICE ]" + "\", \"message\" : \"" + name + " Disconnected" + "\"}";
+                                        System.out.println(exit_message);
+                                        try {
+                                            e.getDos().writeUTF(exit_message);
+                                        } catch (IOException err) {
+                                            err.printStackTrace();
+                                        }
                                     }
-                                }
-                                return !(e == this);
-                            })
-                            .collect(Collectors.toList());
+                                    return !(e == this);
+                                    })
+                                .collect(Collectors.toList());
 
                     System.out.println("[Current User : " + Server.clients.size() + "]");
 
@@ -57,4 +59,7 @@ public class Client {
             }
         }).start();
     }
+
+
+
 }

@@ -67,5 +67,30 @@ public class room {
 
     }
 
+    public void onClickSend() {
+        try {
+            String msg = myMsg.getText();
+
+            //String json = "{" + " 'name' : '" + data.name + "', 'message' : '" + msg + "'" + "}";
+
+            JSONObject js = new JSONObject();
+            js.put("name", data.name);
+            js.put("message", msg);
+
+            String json = js.toJSONString();
+
+
+            System.out.println(json);
+
+            dos.writeUTF(json);
+            myMsg.setText("");
+            myMsg.requestFocus();
+
+        } catch(IOException E) {
+            E.printStackTrace();
+        }
+
+    }
+
 }
 

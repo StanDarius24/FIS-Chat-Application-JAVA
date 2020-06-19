@@ -15,7 +15,7 @@ public class room {
     Socket sock;
     DataOutputStream dos;
     DataInputStream dis;
-
+    public JSONObject js;
 
     public TextField myMsg;
 
@@ -46,7 +46,7 @@ public class room {
 
             //String json = "{" + " 'name' : '" + data.name + "', 'message' : '" + msg + "'" + "}";
 
-            JSONObject js = new JSONObject();
+           js = new JSONObject();
             js.put("name", data.name);
             js.put("message", msg);
 

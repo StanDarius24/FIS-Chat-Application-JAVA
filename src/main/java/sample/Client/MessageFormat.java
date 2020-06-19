@@ -4,6 +4,7 @@ public class MessageFormat {
     private String name;
     private String message;
 
+
     public String getName() {
         return name;
     }

@@ -1,24 +1,41 @@
 package sample.Client;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertTrue;
 
-class MessageFormatTest {
 
-    @Test
-    void getName() {
+public class MessageFormatTest {
+
+    public MessageFormat msg;
+    @Before
+    public void setup()
+    {
+    msg = new MessageFormat();
+    msg.setName("TESTNAME");
+    msg.setMessage("TESTMSG");
     }
 
     @Test
-    void setName() {
+    public void getName() {
+        assertTrue(msg.getName().equals("TESTNAME"));
     }
 
     @Test
-    void getMessage() {
+    public void setName() {
+    msg.setName("TESTINGSETNAME");
+    assertTrue(msg.getName().equals("TESTINGSETNAME"));
     }
 
     @Test
-    void setMessage() {
+    public void getMessage() {
+        assertTrue(msg.getName().equals("TESTNAME"));
+    }
+
+    @Test
+    public void setMessage() {
+        msg.setMessage("TESTINGMSG");
+        assertTrue(msg.getMessage().equals("TESTINGMSG"));
     }
 }
